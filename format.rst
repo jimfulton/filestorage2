@@ -17,6 +17,8 @@ Each record
 
 - align on super-word boundaries (and thus may be null padded).
 
+The record length includes the header and trailing length.
+
 In the definitions below, the trailing record lengths and padding for
 word alignment are implicit.
 
