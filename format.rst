@@ -31,7 +31,7 @@ File header
   header marker/File magic number.
 
 1-word header length, in super words
-  This is always 256 and can be inspected to determine endianness.
+  This is always 4096 and can be inspected to determine endianness.
   (Generally, numbers are little endian, but we may support either,
   with conversion, in the future.)
 
