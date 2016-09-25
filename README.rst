@@ -31,7 +31,16 @@ the previous segment (if any).  A previous segment is only modified if
 its previous segment changes.  Segments may span file-system
 partitions.
 
-A storage object in memory has a sequence of indexes, an in memory
+.. note::
+
+   A simpler alternative is to require precious segments to have a
+   name based on it's last transaction.  For example, when we split an
+   active segment, the previous segment is named based on it's last
+   tid.  If it's merged with its previous segment, it will retain the
+   same name.  In fact, a file's previous-segment identifier can just
+   be a tid.
+
+A storage object in memory have a sequence of indexes, an in memory
 index for the active segment, and 0 or more memory-mapped indexes for
 previous segments.  When searching for the location of an object record,
 it searches the active index and then the previous-segment indexes in
@@ -40,6 +49,13 @@ notify the storage that it has to reassemble it's indexes.
 
 Indexes are stored in separate files alongside each segment. If an
 index is lost, it can be reconstructed from segment data.
+
+.. note::
+
+   Some care will be needed with these indexes as, unlike the main
+   data, they will need to use system endianness.  We'll need to store
+   something in the index files to detect when the endianness is
+   incorrect and then convert or rebuild them.
 
 Packing is performed by merging 2 or more past segments.  After
 merging past segments, old past segments are suitable for archival.
