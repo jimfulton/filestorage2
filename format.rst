@@ -30,15 +30,11 @@ Record marker: 'fs2 '
 
 The record length is always 4096.
 
-1-byte base-2 log of the alignment size (super words)
+8-byte alignment size
   The alignment size allows quick scanning of a segment for
   transaction boundaries.  At offsets that are alignment-size multiples
   into the file, we can find either header, transaction, or padding
-  beginnings.  For example, a value of 28 provides an 256MB alignment
-  size.
-
-  Note that because transactions are not allowed to span alignment
-  boundaries, a value less than 32 reduces the maximum transaction size.
+  beginnings.
 
 2-byte length of previous segment path.
   If 0, then no previous path.
