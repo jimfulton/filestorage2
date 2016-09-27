@@ -112,14 +112,14 @@ Index format
 Every segment has an index file.  If the index file is lost, it can be
 recomputed from the segment file.
 
-The index file consists of a sequence of one or more oid/position
-pairs followed by a footer.
+The index file consists of a header followed by a sequence of one or
+more oid/position pairs.  Each oid/position pair consists of a 8-byte
+oid and an 8-byte segment (file) offset.
 
-Each oid/position pair consists of a 8-byte oid and an 8-byte segment
-(file) offset, in super words.
+The header consists of:
 
-The footer consists of:
-
-8-byte segment size in words
+4-byte magic string: b'fs2i'
+8-byte index length
+8-byte segment size in bytes
 8-byte starting transaction
 8-byte ending transaction
